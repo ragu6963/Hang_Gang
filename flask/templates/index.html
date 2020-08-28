@@ -1,0 +1,323 @@
+{% extends "base.html"%}
+{% block content %}
+<header>
+	<div class="hero">
+		<div class="item">
+			<div class="hero__slide">
+				<img src="../static/img/hero-1.png" alt="">
+				<div class="hero__slideContent text-center">
+					<h1 style="font-weight:bold">HANGANG</h1>
+					<p>
+						우리 한갱이들은 날씨에 따른 한강 이용객 수를 <br> 예측하여 상인들에게 실질적인 도움줍니다.
+					</p>
+					<a class="btn btn--leftBorder btn--rightBorder" href="#Predict">Predict</a>
+					<span class="hero__slideContent--right"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<section class="portfolio section-margin">
+	<div class="container">
+		<div class="section-intro">
+			<h4 class="section-intro__title">OUR DATA</h4>
+			<h2 class="section-intro__subtitle bottom-border">한강에는 언제 사람이 많을까?</h2>
+		</div>
+
+		<div class="row align-items-end pb-md-5 mb-4">
+			<div class="col-md-7 mb-4 mb-md-0">
+				<div class="portfolio__img">
+					<canvas id="month_chart"></canvas>
+				</div>
+			</div>
+			<div class="col-md-5 mb-5 pl-xl-5">
+				<svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+					fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd"
+						d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+					<path fill-rule="evenodd"
+						d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+				</svg>
+				<h2 class="section-intro__subtitle small">월별 평균 한강 이용객 수</h2>
+				<p><br><br><br><br></p>
+			</div>
+		</div>
+
+		<div class="row align-items-end pb-md-5 mb-4">
+			<div class="col-md-5 mb-5 pr-xl-5 order-2 order-md-1">
+				<svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+					fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd"
+						d="M6 2a2 2 0 1 1 4 0v7.627a3.5 3.5 0 1 1-4 0V2zm2-1a1 1 0 0 0-1 1v7.901a.5.5 0 0 1-.25.433A2.499 2.499 0 0 0 8 15a2.5 2.5 0 0 0 1.25-4.666.5.5 0 0 1-.25-.433V2a1 1 0 0 0-1-1z" />
+					<path d="M9.5 12.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+					<path fill-rule="evenodd"
+						d="M8 1.75a.25.25 0 0 1 .25.25v10a.25.25 0 1 1-.5 0V2A.25.25 0 0 1 8 1.75z" />
+				</svg>
+
+				<h2 class="section-intro__subtitle small">기온별 한강 이용객 수</h2>
+				<p><br><br><br><br></p>
+			</div>
+			<div class="col-md-7 mb-4 mb-md-0 order-1 order-md-2">
+				<div class="portfolio__img">
+					<canvas id="temp_chart"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<div class="row align-items-end pb-md-5 mb-4">
+			<div class="col-md-7 mb-4 mb-md-0">
+				<div class="portfolio__img">
+					<canvas id="cloud_chart"></canvas>
+				</div>
+			</div>
+			<div class="col-md-5 mb-5 pl-xl-5">
+				<svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+					fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd"
+						d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+				</svg>
+				<h2 class="section-intro__subtitle small">구름량별 한강 이용객 수</h2>
+				<p><br><br><br><br></p>
+			</div>
+		</div>
+
+		<div class="row align-items-end pb-md-5 mb-4">
+			<div class="col-md-5 mb-5 pr-xl-5 order-2 order-md-1">
+				<svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+					fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+					<path
+						d="M8.5 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 11a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5-5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm-11 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9.743-4.036a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm-7.779 7.779a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm7.072 0a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707zM3.757 4.464a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707z" />
+				</svg>
+				<h2 class="section-intro__subtitle small">일조량별 한강 이용객 수</h2>
+				<p><br><br><br><br></p>
+			</div>
+			<div class="col-md-7 order-1 order-md-2 mb-4 mb-md-0">
+				<div class="portfolio__img">
+					<canvas id="sun_chart"></canvas>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<section class="about section-margin mb-5">
+	<br id="Predict">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-5">
+				<div class="about__img text-center text-md-left mb-5 mb-md-0">
+					<img class="img-fluid" src="../static/img/2.jpg" alt="" style="opacity:0.8!important;
+						filter:alpha(opacity=50);">
+				</div>
+			</div>
+			<div class="col-md-7 pl-xl-5">
+				<div class="section-intro">
+					<h4 class="section-intro__title">Predict HANGANG PEOPLE</h4>
+					<h2 class="section-intro__subtitle">이번 달 날씨 어때??</h2>
+				</div>
+				<p>날씨를 입력하면 한강 이용객 수를 예측해줍니다!</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="overview mt-5">
+	<div class="container">
+		<form action="/result">
+			<div class="row mb-3 justify-content-between">
+				<div class="col-3 ml-auto">
+					<div class="media align-items-center overview__single">
+						<svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+							fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd"
+								d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+							<path fill-rule="evenodd"
+								d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+						</svg>
+						<div class="col-auto my-1">
+							<select name="월" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+								<option selected disabled>월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-3 ">
+					<div class="media align-items-center overview__single">
+						<svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+							fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd"
+								d="M6 2a2 2 0 1 1 4 0v7.627a3.5 3.5 0 1 1-4 0V2zm2-1a1 1 0 0 0-1 1v7.901a.5.5 0 0 1-.25.433A2.499 2.499 0 0 0 8 15a2.5 2.5 0 0 0 1.25-4.666.5.5 0 0 1-.25-.433V2a1 1 0 0 0-1-1z" />
+							<path d="M9.5 12.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+							<path fill-rule="evenodd"
+								d="M8 1.75a.25.25 0 0 1 .25.25v10a.25.25 0 1 1-.5 0V2A.25.25 0 0 1 8 1.75z" />
+						</svg>
+						<div class="media-body">
+							<div class="col">
+								<input name="기온" type="number" class="form-control" placeholder="기온" step=0.01>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-3 mr-auto">
+					<div class="media align-items-center overview__single">
+						<svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+							fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd"
+								d="M7.21.8C7.69.295 8 0 8 0c.109.363.234.708.371 1.038.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8zm.413 1.021A31.25 31.25 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10c0 0 2.5 1.5 5 .5s5-.5 5-.5c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z" />
+						</svg>
+						<div class="media-body">
+							<div class="col">
+								<input name="습도" type="number" class="form-control" placeholder="습도">
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row justify-content-md-center">
+				<div class="col-3  ml-auto ">
+					<div class="media align-items-center overview__single">
+						<svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+							fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd"
+								d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+						</svg>
+						<div class="col-auto my-1">
+							<select name="구름" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+								<option selected disabled>구름양</option>
+								<option value="1">적음</option>
+								<option value="2">보통</option>
+								<option value="3">많음</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-3 mr-auto">
+					<div class="media align-items-center overview__single">
+						<svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-alert-triangle text-warning"
+							fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd"
+								d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+							<path
+								d="M8.5 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 11a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5-5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm-11 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9.743-4.036a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm-7.779 7.779a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm7.072 0a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707zM3.757 4.464a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707z" />
+						</svg>
+						<div class="col-auto my-1">
+							<select name="일조" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+								<option selected disabled>일조량</option>
+								<option value="1">적음</option>
+								<option value="2">보통</option>
+								<option value="3">많음</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<br><br>
+			<div class="text-center pt-2">
+				<button type="submit" class="btn btn--rightBorder btn--leftBorder">Predict</button>
+			</div>
+		</form>
+	</div>
+</section>
+
+<section class="testimonial section-margin">
+	<div class="container">
+		<div class="section-intro ">
+			<h4 class="section-intro__title">OUR Team</h4>
+		</div>
+		<div class="d-flex justify-content-center">
+			<img src=" ./static/img/gang.jpg" class="img-fluid" alt="Responsive image">
+		</div>
+	</div>
+</section>
+
+<footer class="footer">
+	<div class="container">
+		<div class="d-sm-flex justify-content-between footer__bottom top-border">
+			<p>
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				Copyright &copy;
+				<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+				made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+					href="https://www.notion.so/ragu/KFQ-3-1d117f39ad8046eea3d8ce3c882f652e" target="_blank">한갱</a>
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../static/vendor/owl-carousel/owl.carousel.min.js"></script>
+<script>
+	var testimonialCarousel = $('.testimonialCarousel');
+	testimonialCarousel.owlCarousel({
+		loop: true,
+		margin: 80,
+		startPosition: 2,
+		nav: false,
+		responsiveClass: true,
+		responsive: {
+			0: {
+				items: 1
+			},
+			1000: {
+				items: 2,
+				loop: true
+			}
+		}
+	});
+
+	var heroCarousel = $('.heroCarousel');
+	heroCarousel.owlCarousel({
+		loop: true,
+		margin: 10,
+		nav: false,
+		startPosition: 1,
+		responsiveClass: true,
+		responsive: {
+			0: {
+				items: 1
+			}
+		}
+	});
+
+	var dropToggle = $('.menu_right > li').has('ul').children('a');
+	dropToggle.on('click', function () {
+		dropToggle.not(this).closest('li').find('ul').slideUp(200);
+		$(this).closest('li').children('ul').slideToggle(200);
+		return false;
+	});
+
+	$(".toggle_icon").on('click', function () {
+		$('body').toggleClass("open");
+	}); 
+</script>
+
+<script src="/static/charts/month_chart.js"></script>
+<script src="/static/charts/temp_chart.js"></script>
+<script src="/static/charts/cloud_chart.js"></script>
+<script src="/static/charts/sun_chart.js"></script>
+
+
+
+{% endblock content %}
